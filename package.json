@@ -1,0 +1,118 @@
+{
+  "name": "file-switcher",
+  "displayName": "File Switcher",
+  "description": "Switch between files of same name",
+  "version": "1.0.0",
+  "publisher": "boocs",
+  "engines": {
+    "vscode": "^1.86.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/boocs/file-switcher"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "file-switcher.switchFile",
+        "title": "file-switcher: Switch to Partner File"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "file-switcher.switchFile",
+        "key": "Alt+O",
+        "mac": "Alt+O",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "File Switcher",
+        "properties": {
+          "file-switcher.extensions": {
+            "scope": "resource",
+            "type": "object",
+            "order": 0,
+            "description": "You can add more extensions by using commas (e.g. h,hpp or c,cpp)",
+            "properties": {
+              "extensions1": {
+                "type": "string",
+                "description": "Friend extensions of extensions2"
+              },
+              "extensions2": {
+                "type": "string",
+                "description": "Friend extensions of extensions1"
+              }
+            },
+            "additionalProperties": false,
+            "default": {
+              "extensions1": "h",
+              "extensions2": "cpp"
+            },
+            "minProperties": 2,
+            "maxProperties": 2
+          },
+          "file-switcher.log.logLevel": {
+            "scope": "resource",
+            "order": 10,
+            "title": "logging",
+            "type": "string",
+            "enum": [
+              "None",
+              "Error",
+              "Warning",
+              "Info",
+              "Debug"
+            ],
+            "default": "None",
+            "description": "The verbosity of output log messages from minimal to verbose."
+          },
+          "file-switcher.cache.pathCount": {
+            "order": 1,
+            "type": "number",
+            "default": 200,
+            "description": "Store paths in memory for faster retrieval. A path and its friend path, equal 2 paths.",
+            "scope": "resource"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "test2": "nyc --reporter=html mocha ./out/test/suite"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.16",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/rewire": "^2.5.30",
+    "@types/sinon": "^17.0.3",
+    "@types/vscode": "^1.86.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "@vscode/test-electron": "^2.3.0",
+    "chai": "^4.4.1",
+    "eslint": "^8.36.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
+    "rewire": "^7.0.0",
+    "sinon": "^18.0.0",
+    "typescript": "^4.9.5"
+  }
+}
